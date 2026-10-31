@@ -71,7 +71,7 @@
 
   .bubble { position: absolute; z-index: 7; pointer-events: none; background: rgba(255,255,255,.96); color: #0b5f9e;
     padding: 9px 16px; border-radius: 18px; font-size: 15px; font-weight: 700; box-shadow: 0 8px 22px rgba(0,30,70,.3);
-    white-space: nowrap; animation: bubbleUp 2.4s ease-out forwards; }
+    white-space: nowrap; animation: bubbleUp 1.9s ease-out forwards; }
   @keyframes bubbleUp { 0% { transform: translate(-50%, 0) scale(.4); opacity: 0; } 12% { transform: translate(-50%, -12px) scale(1.05); opacity: 1; } 80% { transform: translate(-50%, -120px) scale(1); opacity: 1; } 100% { transform: translate(-50%, -160px) scale(.9); opacity: 0; } }
 
   .particle { position: absolute; z-index: 5; pointer-events: none; will-change: transform, opacity; }
@@ -202,21 +202,14 @@
   function burst(x, y, sourceEl) {
     vibrate(26);
     updateCombo();
-    var n = 14 + Math.floor(Math.random() * 8);
+    var n = 8 + Math.floor(Math.random() * 5);
     for (var i = 0; i < n; i++) {
       var p = document.createElement("div");
       p.className = "particle";
-      var isHeart = Math.random() < 0.35;
-      var ps = 8 + Math.random() * 14;
-      if (isHeart) {
-        p.innerHTML = heartSVG(pick(HEART_COLORS));
-        p.style.width = ps + "px";
-        p.style.height = Math.round(ps * 0.925) + "px";
-      } else {
-        p.textContent = Math.random() < 0.5 ? "✨" : "💙";
-        p.style.fontSize = ps + "px";
-        p.style.lineHeight = 1;
-      }
+      var ps = 10 + Math.random() * 12;
+      p.textContent = "✨";
+      p.style.fontSize = ps + "px";
+      p.style.lineHeight = 1;
       p.style.left = x + "px";
       p.style.top = y + "px";
       p.style.opacity = "1";
@@ -228,11 +221,13 @@
       var dy = Math.sin(angle) * dist - 30;
       var rot = (Math.random() * 2 - 1) * 260;
 
+      var life = 500 + Math.random() * 350;
       p.animate([
         { transform: "translate(-50%, -50%) translate(0px,0px) scale(1) rotate(0deg)", opacity: 1 },
         { transform: "translate(-50%, -50%) translate(" + dx + "px," + dy + "px) scale(.2) rotate(" + rot + "deg)", opacity: 0 }
-      ], { duration: 600 + Math.random() * 400, easing: "cubic-bezier(.2,.7,.3,1)" })
+      ], { duration: life, easing: "cubic-bezier(.2,.7,.3,1)" })
        .onfinish = function () { p.remove(); };
+      setTimeout(function () { p.remove(); }, life + 300);
     }
 
     if (sourceEl) {
@@ -253,7 +248,7 @@
     b.style.left = Math.min(Math.max(x, 90), window.innerWidth - 90) + "px";
     b.style.top = Math.max(y, 70) + "px";
     fxLayer.appendChild(b);
-    setTimeout(function () { b.remove(); }, 2500);
+    setTimeout(function () { b.remove(); }, 2100);
   }
 
   var toastTimer = null;
