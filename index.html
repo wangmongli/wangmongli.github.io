@@ -134,7 +134,33 @@
     "岁岁常欢愉，年年皆胜意！",
     "愿你诸事顺遂，笑靥如花！",
     "越来越好，越来越棒！",
-    "未来可期，一起加油！"
+    "未来可期，一起加油！",
+    "愿你心中有海，眼里有光！",
+    "愿你被蓝色般的温柔包围！",
+    "海阔凭鱼跃，天高任鸟飞！",
+    "愿你事事顺心，处处如意！",
+    "愿你笑口常开，好运自来！",
+    "愿你如海浪般自在，如星空般耀眼！",
+    "愿你成绩飙升，梦想成真！",
+    "愿你遇见的所有温柔，都配得上你的好！",
+    "愿你每天都像晴天一样灿烂！",
+    "愿你前程似锦，归来仍是少年！",
+    "愿你岁岁平安，万事胜意！",
+    "愿你所到之处，皆是坦途！",
+    "愿你开心到冒泡，幸福到冒泡！",
+    "愿你被生活温柔以待，被爱包围！",
+    "愿你从此没有烦恼，只有快乐！",
+    "愿你的努力都有回报！",
+    "愿你成为自己的太阳，无需凭借谁的光！",
+    "愿你眼中有星辰，身边有微风！",
+    "愿你的每一天都值得被纪念！",
+    "愿你温柔且有力量，善良且有锋芒！",
+    "愿你此生尽兴，赤诚善良！",
+    "愿你想要的都拥有，得不到的都释怀！",
+    "愿你顺风顺水，顺心顺意！",
+    "愿你健康长寿，万事安康！",
+    "愿你被偏爱，被例外，被珍惜！",
+    "愿你的世界永远晴朗，永远有光！"
   ];
 
   var HEART_COLORS = ["#003566", "#014f86", "#0a4da3", "#1e5aa8", "#1e90ff", "#2a9df4", "#4facfe", "#38b6ff", "#0096c7", "#00b4d8", "#48cae4", "#5bc0eb", "#7ec8f0", "#90e0ef"];
@@ -202,39 +228,12 @@
   function burst(x, y, sourceEl) {
     vibrate(26);
     updateCombo();
-    var n = 8 + Math.floor(Math.random() * 5);
-    for (var i = 0; i < n; i++) {
-      var p = document.createElement("div");
-      p.className = "particle";
-      var ps = 10 + Math.random() * 12;
-      p.textContent = "✨";
-      p.style.fontSize = ps + "px";
-      p.style.lineHeight = 1;
-      p.style.left = x + "px";
-      p.style.top = y + "px";
-      p.style.opacity = "1";
-      fxLayer.appendChild(p);
-
-      var angle = Math.random() * Math.PI * 2;
-      var dist = 40 + Math.random() * 90;
-      var dx = Math.cos(angle) * dist;
-      var dy = Math.sin(angle) * dist - 30;
-      var rot = (Math.random() * 2 - 1) * 260;
-
-      var life = 500 + Math.random() * 350;
-      p.animate([
-        { transform: "translate(-50%, -50%) translate(0px,0px) scale(1) rotate(0deg)", opacity: 1 },
-        { transform: "translate(-50%, -50%) translate(" + dx + "px," + dy + "px) scale(.2) rotate(" + rot + "deg)", opacity: 0 }
-      ], { duration: life, easing: "cubic-bezier(.2,.7,.3,1)" })
-       .onfinish = function () { p.remove(); };
-      setTimeout(function () { p.remove(); }, life + 300);
-    }
-
     if (sourceEl) {
-      sourceEl.style.transition = "transform .18s ease, opacity .18s ease";
-      sourceEl.style.transform = "scale(2.4)";
-      sourceEl.style.opacity = "0";
-      setTimeout(function () { sourceEl.remove(); }, 190);
+      sourceEl.animate([
+        { transform: "scale(1)", opacity: 1 },
+        { transform: "scale(1.6)", opacity: 0 }
+      ], { duration: 220, easing: "ease-out", fill: "forwards" });
+      setTimeout(function () { sourceEl.remove(); }, 240);
     }
 
     showBubble(x, y);
